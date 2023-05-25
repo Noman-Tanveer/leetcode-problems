@@ -28,5 +28,22 @@ class Solution:
                         max_sofar = ma-j
             return max_sofar
 
-# Further improvements
+# Further improvements using two pointer solution O(n) time complexity
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        left = 0
+        right = 0
+        profit = 0
+
+        while right < len(prices):
+            if prices[right] < prices[left]:
+                left=right
+                right = left+1
+
+            else:
+                cur_profit = prices[right] - prices[left]
+                if cur_profit > profit:
+                    profit = cur_profit
+                right += 1
+        return profit
