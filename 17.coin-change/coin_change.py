@@ -26,3 +26,16 @@ class Solution:
         index = len(coins) - 1
         su = []
         return self.get_coins(su, index, amount, coins)
+
+
+# Dynamic Programming solution
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        min_coins = [0] + [amount+1]*amount
+        min_coins[0] = 0
+
+        for coin in coins:
+            for i in range(1, amount+1):
+                if i-coin>=0:
+                    min_coins[i]=min(min_coins[i], min_coins[i-coin]+1)
+        return -1 if min_coins[-1]==amount+1 else min_coins[-1]
