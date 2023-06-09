@@ -18,12 +18,5 @@ def find_match(corpus, words):
     mem = {}
     return check_true(corpus, words, mem)
 
-
-
-
-
-
-
-
 if __name__ == "__main__":
     find_match("whataboutus", ["about", "what", "us"])
