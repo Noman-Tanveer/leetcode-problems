@@ -10,4 +10,4 @@ class Solution:
 
         for i in range(2, len(nums)):
             cache[i] = max(cache[i-1], cache[i-2]+nums[i])
-        return max(cache[-1], cache[-2])
+        return cache[-1]
