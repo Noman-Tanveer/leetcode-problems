@@ -1,3 +1,5 @@
+from typing import List
+
 class Solution:
     def rob(self, nums: List[int]) -> int:
         cache1 = [0] * (len(nums))
@@ -6,8 +8,8 @@ class Solution:
             return max(nums)
         cache1[0] = nums[0]
         cache1[1] = max(nums[1], nums[0])
-        cache2[0] = nums[1]
-        cache2[1] = max(nums[1], nums[2])
+        cache2[1] = nums[1]
+        cache2[2] = max(nums[1], nums[2])
 
         for i in range(2, len(nums)-1):
             cache1[i] = max(cache1[i-1], cache1[i-2]+nums[i])
@@ -17,4 +19,4 @@ class Solution:
 
         print(cache1, cache2)
 
-        return max(max(cache1[-2:]), max(cache2[-2:]))
+        return max(cache1[-2], cache2[-1])
