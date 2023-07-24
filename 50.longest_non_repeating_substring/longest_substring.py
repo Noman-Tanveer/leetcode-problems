@@ -1,22 +1,24 @@
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        str_l = len(s)
-        if not s:
-            return 0
-        if str_l == 1:
-            return 1
+    def characterReplacement(self, s: str, k: int) -> int:
 
-        ptr1 = 0
-        ptr2 = 1
-        longest = 1
+        l = 0
+        c_frequency = {}
+        longest_str_len = 0
+        for r in range(len(s)):
 
-        while ptr2 < str_l:
-            cur = 1
-            while ptr2<str_l and s[ptr2] not in s[ptr1:ptr2]:
-                ptr2 += 1
-                cur = ptr2-ptr1
+            if not s[r] in c_frequency:
+                c_frequency[s[r]] = 0
+            c_frequency[s[r]] += 1
+
+            # Replacements cost = cells count between left and right - highest frequency
+            cells_count = r - l + 1
+            if cells_count - max(c_frequency.values()) <= k:
+                longest_str_len = max(longest_str_len, cells_count)
+
             else:
-                longest = cur if cur > longest else longest
-                ptr1 += 1
-                ptr2 = ptr1+1
-        return longest
+                c_frequency[s[l]] -= 1
+                if not c_frequency[s[l]]:
+                    c_frequency.pop(s[l])
+                l += 1
+
+        return longest_str_len
